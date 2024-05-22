@@ -71,29 +71,3 @@ const greaterThanTwo2 = (num) => num > 6;
 const reducer = (a, b) => a + b;
 const filteredArray2 = array2.filter(greaterThanTwo2).reduce(reducer, 0);
 console.log(filteredArray2); // 45
-
-
-// COMPOSITION FUNCTIONS 👇🏼
-// CHAINING ORDINARY FUNCTIONS
-const multiplyBy5 = (x) => x * 5;
-const add3 = (x) => x + 3;
-const divideBy2 = (x) => x / 2;
-
-const initialResult = multiplyBy5(25);
-const nextStep = add3(initialResult);
-const finalStep = divideBy2(nextStep); // 64
-// NOW THIS IS PRETTY UNREADABLE THOUGH
-const result3 = divideBy2(add3(multiplyBy5(25))); // 64
-
-//👉 REDUCE AS THE MOST VERSATILE FUNCTION IN FUNCTIONAL PROGRAMMING 👈🏻
-const reduce2 = (array, howToCombine, buildingUp) => {
-	for (let i = 0; i < array.length; i++) {
-		buildingUp = howToCombine(buildingUp, array[i]);
-	}
-	return buildingUp;
-};
-
-const runFunctionOnInput = (input, fn) => {
-	return fn(input);
-};
-const output = reduce2([multiplyBy5, add3, divideBy2], runFunctionOnInput, 11); // 29
