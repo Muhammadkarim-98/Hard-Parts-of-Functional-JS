@@ -28,7 +28,6 @@ const outer2 = () => {
 };
 const newResult = outer2();
 
-
 // FUNCTION DECORATION
 // To add a permanent memory to an existing function we have to create a new function that will run the existing function inside of itself
 const oncify = (convertMe) => {
@@ -39,7 +38,7 @@ const oncify = (convertMe) => {
 			output = convertMe(input);
 			counter++;
 			return outer;
-		};
+		}
 		return "Sorry!";
 	};
 	return inner;
@@ -69,3 +68,18 @@ const decoratedMultiplyBy3 = logDecorator(multiplyBy3);
 
 // Using the decorated function
 decoratedMultiplyBy3(10); // Logs: Arguments: 10, Result: 20
+
+// Partial Application
+const multiply = (a, b) => a * b;
+
+function prefillFunction(fn, prefilledValue) {
+	const inner = (liveInput) => {
+		const output = fn(liveInput, prefilledValue);
+		return output;
+	};
+	return inner;
+};
+
+const result2 = prefillFunction(multiply, 2);
+const finalResult = result2(5);
+console.log(finalResult); // 10
